@@ -11,9 +11,10 @@ const usuarioSchema = new mongoose.Schema({
     password: {
         type: String,
         require: true
-    }, estatus: {
+    }, 
+    estatus: {
         type: Boolean,
-        require: true
+        default: true
     }
 });
 
