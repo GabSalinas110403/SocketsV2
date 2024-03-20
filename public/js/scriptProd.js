@@ -1,7 +1,9 @@
 const socket= io();
 var mensajeDiv = document.getElementById("mensaje");
+var datos = document.getElementById("datosProd");
 
 // MOSTRAR DATOS DE MONGODB
+
 socket.on("servidorEnviarProductos", (productos) => {
     var tr = "";
     productos.forEach((producto, idLocal) => {
@@ -20,6 +22,7 @@ socket.on("servidorEnviarProductos", (productos) => {
     });  
     datosProd.innerHTML = tr;  
 });
+
 
 // GUARDAR DATOS A MONGODB
 var enviarDatosProd = document.getElementById("enviarDatosProd");

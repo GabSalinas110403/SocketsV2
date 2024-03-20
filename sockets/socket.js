@@ -22,24 +22,24 @@ function socket(io) {
             }
         });
 
-                // MOOSTRAR PRODUCTOS
-                mostrarProductos();
-                async function mostrarProductos(){
-                    const productos = await Producto.find();
-                    //console.log(productos);
-                    io.emit("servidorEnviarProductos", productos)
-                }
+        // MOOSTRAR PRODUCTOS
+        mostrarProductos();
+            async function mostrarProductos(){
+                const productos = await Producto.find();
+                //console.log(productos);
+                io.emit("servidorEnviarProductos", productos)
+            }
         
-                //GUARDAR producto
-                socket.on("clienteGuardarProducto", async (producto) => {
-                    try {
-                        await new Producto(producto).save();
-                        io.emit("servidorProductoGuardado", "producto guardado");
-                    }
-                    catch (err){
-                        console.log("Error al registrar producto " +err);
-                    }
-                });
+        //GUARDAR producto
+        socket.on("clienteGuardarProducto", async (producto) => {
+            try {
+                await new Producto(producto).save();
+                io.emit("servidorProductoGuardado", "producto guardado");
+            }
+            catch (err){
+                console.log("Error al registrar producto " +err);
+            }
+        });
     }); //FIN IO.ON
 }
 

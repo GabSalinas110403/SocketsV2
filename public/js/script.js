@@ -1,5 +1,6 @@
 const socket= io();
 var mensajeDiv = document.getElementById("mensaje");
+var datos = document.getElementById("datos");
 
 // MOSTRAR DATOS DE MONGODB
 socket.on("servidorEnviarUsuarios", (usuarios) => {
