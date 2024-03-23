@@ -34,15 +34,16 @@
                 <form action="" id="enviarDatos">
                     <div class="card">
                         <div class="card-header">
-                            <h1>Nuevo usuario</h1>
+                            <h1 id="txtNuevoUsuario">Nuevo usuario</h1>
                         </div>
                         <div class="card-body">
+                            <input class="form-control mb-3" type="text" id="id" placeholder="ID" readonly disabled>  
                             <input class="form-control mb-3" type="text" id="nombre" placeholder="Nombre" autofocus>  
                             <input class="form-control mb-3" type="text" id="usuario" placeholder="usuario" >                  
                             <input class="form-control mb-3" type="text" id="password" placeholder="password">                        
                         </div>
                         <div class="card-footer">
-                            <button class="form-control btn btn-primary mb-3" type="submit">Guardar usuarios</button>
+                            <button id="txtGuardarUsuario" class="form-control btn btn-primary mb-3" type="submit">Guardar usuarios</button>
                             <button class="form-control btn btn-secondary" type="reset">Borrar datos</button>
                         </div>
                     </div>

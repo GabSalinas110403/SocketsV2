@@ -14,13 +14,35 @@ function socket(io) {
         //GUARDAR USUARIO
         socket.on("clienteGuardarUsuario", async (usuario) => {
             try {
-                await new Usuario(usuario).save();
-                io.emit("servidorUsuarioGuardado", "Usuario guardado");
+                if (usuario.id == ""){
+                    await new Usuario(usuario).save();
+                    io.emit("servidorUsuarioGuardado", "Usuario guardado");
+                }
+                else{
+                    await Usuario.findByIdAndUpdate(usuario.id, usuario);
+                    io.emit("servidorUsuarioGuardado", "Usuario modificado");
+                }
+                mostrarUsuarios();
             }
             catch (err){
                 console.log("Error al registrar usuario " +err);
             }
         });
+
+        // OBTENER USUARIO POR ID
+        socket.on("clienteObtenerUsuarioPorID", async (id) => {
+            const usuario =  await Usuario.findById(id);
+            io.emit("servidorObtenerUsuarioPorID", usuario);
+        });
+
+        // BORRAR USUARIO POR ID
+        socket.on("clienteBorrarUsuario", async (id) => {
+            await Usuario.findByIdAndDelete(id);
+            io.emit("servidorUsuarioGuardado", "Usuario borrado");
+            mostrarUsuarios();
+        });
+
+        ////////////////////////// CODIGO DE  PRODUCTOS //////////////////////////
 
         // MOOSTRAR PRODUCTOS
         mostrarProductos();
