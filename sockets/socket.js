@@ -52,16 +52,38 @@ function socket(io) {
                 io.emit("servidorEnviarProductos", productos)
             }
         
-        //GUARDAR producto
+        //GUARDAR PRODUCTO
         socket.on("clienteGuardarProducto", async (producto) => {
             try {
-                await new Producto(producto).save();
-                io.emit("servidorProductoGuardado", "producto guardado");
+                if (producto.id == ""){
+                    await new Producto(producto).save();
+                    io.emit("servidorProductoGuardado", "Producto guardado");
+                }
+                else{
+                    await Producto.findByIdAndUpdate(producto.id, producto);
+                    io.emit("servidorProductoGuardado", "Producto modificado");
+                }
+                mostrarProductos();
             }
             catch (err){
                 console.log("Error al registrar producto " +err);
             }
         });
+
+        // OBTENER PRODUCTO POR ID
+        socket.on("clienteObtenerProductoPorID", async (id) => {
+            const producto =  await Producto.findById(id);
+            io.emit("servidorObtenerProductoPorID", producto);
+        });
+
+        // BORRAR PRODUCTO POR ID
+        socket.on("clienteBorrarProducto", async (id) => {
+            await Producto.findByIdAndDelete(id);
+            io.emit("servidorProductoGuardado", "Producto borrado");
+            mostrarProductos();
+        });
+
+
     }); //FIN IO.ON
 }
 

@@ -3,7 +3,6 @@ var mensajeDiv = document.getElementById("mensaje");
 var datos = document.getElementById("datosProd");
 
 // MOSTRAR DATOS DE MONGODB
-
 socket.on("servidorEnviarProductos", (productos) => {
     var tr = "";
     productos.forEach((producto, idLocal) => {
@@ -23,13 +22,13 @@ socket.on("servidorEnviarProductos", (productos) => {
     datosProd.innerHTML = tr;  
 });
 
-
 // GUARDAR DATOS A MONGODB
 var enviarDatosProd = document.getElementById("enviarDatosProd");
 enviarDatosProd.addEventListener("submit", (e) => {
     e.preventDefault();
     // RECIBIR LOS DATOS DEL FORMULARIO
     var producto = {
+        id:document.getElementById("id").value,
         nombre:document.getElementById("nombre").value,
         descripcion:document.getElementById("descripcion").value,
         precio:document.getElementById("precio").value,
@@ -54,9 +53,21 @@ enviarDatosProd.addEventListener("submit", (e) => {
 // MODIFICAR UN REGISTRO
 function editarProducto(id){
     console.log(id);
+    socket.emit("clienteObtenerProductoPorID",id);
 }
+socket.on("servidorObtenerProductoPorID", (producto)=>{
+    console.log(producto);
+    document.getElementById("id").value=producto._id;
+    document.getElementById("nombre").value=producto.nombre;
+    document.getElementById("descripcion").value=producto.descripcion;
+    document.getElementById("precio").value=producto.precio;
+    document.getElementById("txtNuevoProducto").innerHTML="Editar Producto";
+    document.getElementById("txtGuardarProducto").innerHTML="Guardar cambios";
+
+});
 
 // ELIMINAR UN REGISTRO
 function borrarProducto(id){
     console.log(id);
+    socket.emit("clienteBorrarProducto", id);
 }

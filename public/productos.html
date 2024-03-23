@@ -34,15 +34,16 @@
                 <form action="" id="enviarDatosProd">
                     <div class="card">
                         <div class="card-header">
-                            <h1>Nuevo producto</h1>
+                            <h1 id="txtNuevoProducto">Nuevo producto</h1>
                         </div>
                         <div class="card-body">
+                            <input class="form-control mb-3" type="text" id="id" placeholder="ID" readonly disabled>  
                             <input class="form-control mb-3" type="text" id="nombre" placeholder="Nombre" autofocus>  
                             <input class="form-control mb-3" type="text" id="descripcion" placeholder="descripcion" >                  
                             <input class="form-control mb-3" type="number" id="precio" placeholder="precio">                        
                         </div>
                         <div class="card-footer">
-                            <button class="form-control btn btn-primary mb-3" type="submit">Guardar producto</button>
+                            <button id="txtGuardarProducto" class="form-control btn btn-primary mb-3" type="submit">Guardar producto</button>
                             <button class="form-control btn btn-secondary" type="reset">Borrar datos</button>
                         </div>
                     </div>
