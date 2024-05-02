@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 require ("dotenv").config();
 const mongodb_pw = process.env.MONGO_ATLAS;
+
 async function conectarMongo(){
     const mongoDB = mongodb_pw;
     mongoose.set("strictQuery",true);
